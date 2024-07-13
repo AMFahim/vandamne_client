@@ -1,0 +1,65 @@
+{
+  "plugins": ["tailwindcss", "react", "react-hooks", "jsx-a11y"],
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "airbnb-typescript",
+    "plugin:@typescript-eslint/strict",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:react/jsx-runtime",
+    "plugin:testing-library/react",
+    "plugin:react/recommended",
+    "plugin:tailwindcss/recommended",
+    "plugin:jsx-a11y/recommended",
+    "prettier",
+    "next"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "no-unused-vars": [
+      "warn",
+      { "argsIgnorePattern": "^_", "varsIgnorePattern": "^set" }
+    ],
+    "strict": "error",
+    "linebreak-style": ["error", "unix"],
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-unused-vars": ["off"],
+    "@typescript-eslint/restrict-template-expressions": "error",
+    "@typescript-eslint/consistent-type-imports": [
+      "warn",
+      { "prefer": "no-type-imports" }
+    ],
+    "react/no-array-index-key": "error",
+    "react/prefer-exact-props": "error",
+    "react/no-children-prop": "warn",
+    "no-restricted-imports": ["warn", { "patterns": ["../"] }],
+    "react/button-has-type": "warn",
+    "arrow-body-style": ["warn", "as-needed"],
+    "@typescript-eslint/consistent-type-definitions": ["warn", "type"],
+    "@typescript-eslint/no-unnecessary-condition": "error",
+    "eqeqeq": ["error", "smart"],
+    "prefer-const": "error",
+    "no-var": "error",
+    "quotes": ["error", "single"],
+    "no-empty": "warn",
+    "spaced-comment": "error",
+    "no-duplicate-imports": "error",
+    "camelcase": [
+      "error",
+      { "properties": "never", "ignoreDestructuring": true }
+    ],
+    "no-console": "error",
+    "object-shorthand": "error",
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "extendDefaults": true,
+        "types": {
+          "{}": false
+        }
+      }
+    ]
+  }
+}

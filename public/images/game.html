@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shooting Game</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+        #gameArea {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #f0f0f0;
+        }
+        .target {
+            position: absolute;
+            border-radius: 50%;
+            background-color: red;
+            width: 50px;
+            height: 50px;
+        }
+        .crosshair {
+            position: absolute;
+            pointer-events: none;
+        }
+        #dot {
+            width: 10px;
+            height: 10px;
+            background-color: black;
+            border-radius: 50%;
+        }
+        #plus {
+            width: 20px;
+            height: 20px;
+            background-color: transparent;
+        }
+        #plus::before, #plus::after {
+            content: '';
+            position: absolute;
+            background-color: black;
+        }
+        #plus::before {
+            width: 100%;
+            height: 2px;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+        #plus::after {
+            width: 2px;
+            height: 100%;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        #square {
+            width: 20px;
+            height: 20px;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameArea"></div>
+    <div id="crosshairContainer">
+        <div id="dot" class="crosshair" style="display: none;"></div>
+        <div id="plus" class="crosshair" style="display: none;"></div>
+        <div id="square" class="crosshair" style="display: none;"></div>
+    </div>
+
+    <div>
+        <label for="crosshairSelect">Select Crosshair:</label>
+        <select id="crosshairSelect">
+            <option value="dot">Dot</option>
+            <option value="plus">Plus</option>
+            <option value="square">Square</option>
+        </select>
+
+        <label for="sizeRange">Crosshair Size:</label>
+        <input type="range" id="sizeRange" min="10" max="50" value="20">
+
+        <label for="targetDistance">Target Distance:</label>
+        <input type="range" id="targetDistance" min="100" max="1000" value="500">
+
+        <button id="startButton">Start Game</button>
+    </div>
+
+    <script>
+        const gameArea = document.getElementById('gameArea');
+        const crosshairContainer = document.getElementById('crosshairContainer');
+        const dot = document.getElementById('dot');
+        const plus = document.getElementById('plus');
+        const square = document.getElementById('square');
+        const crosshairSelect = document.getElementById('crosshairSelect');
+        const sizeRange = document.getElementById('sizeRange');
+        const targetDistance = document.getElementById('targetDistance');
+        const startButton = document.getElementById('startButton');
+
+        document.addEventListener('mousemove', (event) => {
+            const x = event.clientX;
+            const y = event.clientY;
+            const crosshair = document.querySelector('.crosshair:not([style*="display: none"])');
+            crosshair.style.left = `${x - crosshair.offsetWidth / 2}px`;
+            crosshair.style.top = `${y - crosshair.offsetHeight / 2}px`;
+        });
+
+        crosshairSelect.addEventListener('change', (event) => {
+            dot.style.display = 'none';
+            plus.style.display = 'none';
+            square.style.display = 'none';
+            const selectedCrosshair = event.target.value;
+            document.getElementById(selectedCrosshair).style.display = 'block';
+        });
+
+        sizeRange.addEventListener('input', (event) => {
+            const size = event.target.value;
+            dot.style.width = dot.style.height = `${size}px`;
+            plus.style.width = plus.style.height = `${size}px`;
+            square.style.width = square.style.height = `${size}px`;
+        });
+
+        startButton.addEventListener('click', () => {
+            const distance = targetDistance.value;
+            const target = document.createElement('div');
+            target.classList.add('target');
+            target.style.top = `${Math.random() * (gameArea.clientHeight - 50)}px`;
+            target.style.left = `${Math.random() * (gameArea.clientWidth - 50)}px`;
+            gameArea.appendChild(target);
+            setTimeout(() => target.remove(), distance);
+        });
+    </script>
+</body>
+</html>
